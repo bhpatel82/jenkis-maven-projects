@@ -10,6 +10,7 @@ pipeline {
             steps {
                 sh "mvn test site"
             }
+         }
         stage('deploy') { 
             steps {
                 sh "mvn package"
