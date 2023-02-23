@@ -21,6 +21,23 @@ pipeline {
                 sh "mvn package"
             }
         }
+        stage('Build & Dcoker Image') { 
+            steps {
+                sh "docker built -t bhpatel82/maven_docker_jenkins_pipeline:${BUILD_NUMBER} ."
+            }
+        }
+        stage('Dcoker login') { 
+            steps {
+                withCredentials([string(credentialsId: 'DockerID', variable: 'Dockerpwd')]){
+                sh "docker login -u anvbhaskar -p ${Dockerpwd}"
+                   }
+            }
+        }
+        stage('Push to Repository') { 
+            steps {
+                sh "docker push bhpatel82/maven_docker_jenkins_pipeline:${BUILD_NUMBER}"
+            }
+        }
         stage('Archving') { 
             steps {
                  archiveArtifacts '**/target/*.jar'
