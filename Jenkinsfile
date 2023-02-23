@@ -23,7 +23,7 @@ pipeline {
         }
         stage('Build & Dcoker Image') { 
             steps {
-                sh 'docker built -t bhpatel82/maven_docker_jenkins_pipeline:${BUILD_NUMBER} .'
+                sh 'docker build -t bhpatel82/maven_docker_jenkins_pipeline:${BUILD_NUMBER} .'
             }
         }
         stage('Dcoker login') { 
